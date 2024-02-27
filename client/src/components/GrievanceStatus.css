@@ -1,0 +1,50 @@
+.container {
+  max-width: 800px;
+ 
+  bottom : 100%
+}
+
+.container h2{
+  text-align: center;
+  margin-top: -200px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+}
+
+.container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.container table th,
+.container table td {
+  border: 1px solid #ccc;
+  padding: 12px; /* Increased padding for better spacing */
+  text-align: center; /* Center-align text */
+}
+
+.container table th {
+  background-color: #86b8ec; /* Change header background color */
+  color: black; /* Change header text color */
+  font-weight: bold; /* Add bold font weight */
+  text-transform: uppercase; /* Convert text to uppercase */
+}
+
+.container table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.container table tbody tr:hover {
+  background-color: #e0e0e0; /* Lighter background color on hover */
+}
+
+/* Add hover effect to table cells */
+.container table tbody tr:hover td {
+  background-color: #ddd;
+}
+
+/* Reduce the gap between the container and the buttons */
+.home_page .container {
+  margin-top: 20px; /* Adjust margin as needed */
+}

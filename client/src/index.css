@@ -1,0 +1,333 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #656262;
+}
+
+html,
+body {
+  height: auto;
+  width: auto;
+  margin: 0;
+  overflow-y: auto;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(143, 187, 204, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form_container {
+  position: relative; /* Change position to relative */
+  margin-top: 20vh; /* Adjust top margin to create space for the CollegeInfo */
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto; /* Center the form horizontally */
+  background-color: white;
+}
+
+.form_container > h2 {
+  margin: 1rem 0;
+  padding: 0.6rem;
+  color: rgba(0, 212, 255, 1);
+  text-align: center;
+}
+
+.form_container > form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.form_container div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form_container input {
+  border: none;
+  padding: 0.5rem;
+  border-bottom: 1px solid gray;
+  font-size: 1.1rem;
+  outline: none;
+}
+
+.form_container input::placeholder {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.form_container button {
+  background-color: rgba(0, 212, 255, 1);
+  color: #fff;
+  border: none;
+  padding: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  align-self: center;
+}
+
+span a {
+  text-decoration: none;
+  color: rgba(0, 212, 255, 1);
+}
+
+.home_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the content */
+  padding: 1rem;
+  min-height: 100vh; /* Ensure full viewport height */
+}
+
+.home_page span {
+  display: flex;
+  align-items: center;
+}
+
+.home_page button {
+  background-color: rgb(36, 193, 228);
+  color: #fff;
+  cursor: pointer;
+  padding: 0.8rem 0.5rem;
+  font-size: 1rem;
+  border-radius: 0rem;
+  transition: ease-in 0.3s;
+}
+
+.home_page button:hover {
+  background-color: rgba(0, 212, 255, 1);
+}
+
+.college-info-container {
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 75%;
+  text-align: center;
+}
+
+.college-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.college-info img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.college-info h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.college-info p {
+  font-size: 16px;
+  color: rgb(8, 8, 8);
+  font-weight: bold;
+}
+
+.form-container {
+  /* position: fixed;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 1200px; 
+  height: 90%;
+  max-height: 120vh;
+  overflow-y: auto;
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 0.2);
+  z-index: 1;
+  transition: all 0.3s ease; */
+  position: relative; /* Change position to relative */
+  margin-top: 5vh; /* Adjust top margin to create space for the CollegeInfo */
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+
+  background-color: white;
+}
+
+.form-container.open {
+  position: relative;
+  top: 120%; /* Adjust the position as needed */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.form-container h6 {
+  color: blue;
+  text-align: center;
+  font-size: 15px;
+}
+
+.form-container hr {
+  color: black;
+  width: 100%;
+}
+
+.form-container span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.form-container button {
+  background-color: rgba(0, 212, 255, 1);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+.form-container span h6 {
+  display: flex;
+  align-items: center; /* Add this property */
+  margin-right: 10px;
+}
+
+.form-container span button {
+  background-color: rgba(0, 212, 255, 1);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+
+.grievance-form {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  color: black;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+  height: auto; /* Set height to auto */
+  max-height: 90%;
+}
+.form-margin {
+  /* Adjust the margin height as needed */
+  height: 80px; /* Example height for margin */
+}
+
+.grievance-form {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  color: #333; /* Adjust text color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  margin: auto;
+}
+
+.grievance-form h3 {
+  margin-bottom: 15px; /* Increase margin bottom */
+  font-size: 1.5rem; /* Increase font size */
+  color: #007bff; /* Change heading color */
+}
+
+.grievance-form textarea {
+  width: 100%;
+  height: 150px; /* Increase height for better usability */
+  margin-bottom: 15px; /* Increase margin bottom */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.grievance-form label {
+  font-size: 1rem; /* Increase font size */
+  color: #555; /* Adjust label color */
+  margin-bottom: 8px; /* Adjust margin bottom */
+  display: block;
+}
+
+.grievance-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px; /* Increase padding for better click area */
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease; /* Add transition for hover effect */
+}
+
+.grievance-form button:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-info h6 {
+  color: blue;
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Adjust this margin as needed */
+}
+
+.user-info span {
+  margin-left: 10px;
+}
+
+.user-info button {
+  background-color: rgba(0, 212, 255, 1);
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.4rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+  border-radius: 0.1rem;
+}
+
+.buttons-container {
+  display: flex;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  margin: 30px;
+}
