@@ -78,7 +78,7 @@ const Signup = () => {
         <div>
           <label htmlFor="email">Email</label>
           <input
-            type="email"
+            type="text"
             name="email"
             value={email}
             placeholder="Enter your email"

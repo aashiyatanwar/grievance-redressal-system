@@ -1,20 +1,23 @@
 .container {
   max-width: 800px;
- 
-  bottom : 100%
+  bottom : 100%;
+  text-align : center
 }
 
 .container h2{
   text-align: center;
   margin-top: -200px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-left: 150px;
   
 }
 
 .container table {
-  width: 100%;
+  width: 120%;
   border-collapse: collapse;
   margin-bottom: 15px;
+  margin-left: auto;
+  
 }
 
 .container table th,
