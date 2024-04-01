@@ -80,6 +80,7 @@ const GrievanceStatus = ({ user }) => {
             <th>Date of Submission</th>
             <th>Grievance Redressal Remarks</th>
             <th>Date of Redress</th>
+            <th>Department</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -92,6 +93,7 @@ const GrievanceStatus = ({ user }) => {
               <td>{new Date(status.dateOfSubmission).toLocaleDateString()}</td>
               <td>{status.remarks}</td>
               <td>{new Date(status.dateOfRedressal).toLocaleDateString()}</td>
+              <td>{status.department}</td>
               <td>{status.status}</td>
 
             </tr>
