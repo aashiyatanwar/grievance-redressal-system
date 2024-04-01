@@ -7,6 +7,8 @@ module.exports.Grievance = async (req, res, next) => {
   try {
     const newPost = grievance({
       detail: req.body.detail,
+      department: req.body.department,
+
       user: filter,
     });
 
@@ -19,14 +21,13 @@ module.exports.Grievance = async (req, res, next) => {
 
 // Create a new grievance redressal status
 module.exports.createGrievanceRedressalStatus = async (req, res) => {
-  const filter = {_id : req.params.grievanceId}
+  const filter = { _id: req.params.grievanceId };
   console.log(grievanceId);
   try {
-    
     const newPost = grievance({
-      remarks : req.body.remarks,
-      status : req.body.status,
-      grievance : filter,
+      remarks: req.body.remarks,
+      status: req.body.status,
+      grievance: filter,
     });
     const savedStatus = await newStatus.save();
     res.send(201).json(savedStatus);
@@ -44,9 +45,9 @@ module.exports.getAllGrievanceRedressalStatuses = async (req, res) => {
       // Include only the following
       // projection : {}
     };
-  
+
     const statuses = await grievance.find(options);
-    console.log("statues-all" , statuses)
+    console.log("statues-all", statuses);
     if (statuses) {
       res.status(200).send({ success: true, data: statuses });
     } else {
@@ -62,7 +63,9 @@ module.exports.getGrievanceRedressalStatusById = async (req, res) => {
   try {
     const status = await grievance.findById(req.params.id);
     if (!status) {
-      return res.status(404).send({ message: "Grievance redressal status not found" });
+      return res
+        .status(404)
+        .send({ message: "Grievance redressal status not found" });
     }
     res.json(status);
   } catch (error) {
@@ -80,7 +83,9 @@ module.exports.updateGrievanceRedressalStatus = async (req, res) => {
       { new: true }
     );
     if (!updatedStatus) {
-      return res.status(404).send({ message: "Grievance redressal status not found" });
+      return res
+        .status(404)
+        .send({ message: "Grievance redressal status not found" });
     }
     res.json(updatedStatus);
   } catch (error) {
@@ -93,7 +98,9 @@ module.exports.deleteGrievanceRedressalStatus = async (req, res) => {
   try {
     const deletedStatus = await grievance.findByIdAndDelete(req.params.id);
     if (!deletedStatus) {
-      return res.status(404).send({ message: "Grievance redressal status not found" });
+      return res
+        .status(404)
+        .send({ message: "Grievance redressal status not found" });
     }
     res.json({ message: "Grievance redressal status deleted successfully" });
   } catch (error) {
@@ -102,12 +109,11 @@ module.exports.deleteGrievanceRedressalStatus = async (req, res) => {
 };
 
 module.exports.getGrievanceRedressalStatusByUser = async (req, res) => {
-  
   try {
     //const userId = req.params.userId;
-    const filter={user : req.params.userId}
-    console.log(filter)
-    const statuses = await grievance.find(filter)
+    const filter = { user: req.params.userId };
+    console.log(filter);
+    const statuses = await grievance.find(filter);
     console.log("Statuses:", statuses);
     res.send(statuses);
   } catch (error) {
@@ -130,7 +136,10 @@ module.exports.getAllGrievanceRedressalStatusesbyDate = async (req, res) => {
 
     // If end date is provided, add it to the query
     if (endDate) {
-      query.dateOfSubmission = { ...query.dateOfSubmission, $lte: new Date(endDate) };
+      query.dateOfSubmission = {
+        ...query.dateOfSubmission,
+        $lte: new Date(endDate),
+      };
     }
 
     const statuses = await grievance.find(query);
@@ -139,4 +148,3 @@ module.exports.getAllGrievanceRedressalStatusesbyDate = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
-

@@ -38,11 +38,11 @@ body {
 }
 
 .form_container {
-  position: relative; 
-  margin-top: 20vh; 
+  position: relative;
+  margin-top: 20vh;
   padding: 2rem;
   max-width: 600px;
-  margin: auto; 
+  margin: auto;
   background-color: white;
 }
 
@@ -97,9 +97,9 @@ span a {
 .home_page {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   padding: 1rem;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .home_page span {
@@ -160,19 +160,17 @@ span a {
 }
 
 .form-container {
-
-  position: relative; 
-  margin-top: 5vh; 
+  position: relative;
+  margin-top: 5vh;
   padding: 2rem;
   width: 100%;
   max-width: 1200px;
-
   background-color: white;
 }
 
 .form-container.open {
   position: relative;
-  top: 120%; 
+  top: 120%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -204,9 +202,10 @@ span a {
   cursor: pointer;
   border-radius: 0.3rem;
 }
+
 .form-container span h6 {
   display: flex;
-  align-items: center; 
+  align-items: center;
   margin-right: 10px;
 }
 
@@ -230,12 +229,12 @@ span a {
   width: 100%;
   max-width: 600px;
   margin-top: 20px;
-  height: auto; 
+  height: auto;
   max-height: 90%;
 }
+
 .form-margin {
- 
-  height: 80px; 
+  height: 80px;
 }
 
 .grievance-form {
@@ -243,21 +242,21 @@ span a {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  color: #333; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  color: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: auto;
 }
 
 .grievance-form h3 {
   margin-bottom: 15px;
   font-size: 1.5rem;
-  color: #007bff; 
+  color: #007bff;
 }
 
 .grievance-form textarea {
   width: 100%;
-  height: 150px; 
-  margin-bottom: 15px; 
+  height: 150px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   resize: vertical;
@@ -266,9 +265,9 @@ span a {
 }
 
 .grievance-form label {
-  font-size: 1rem; 
+  font-size: 1rem;
   color: #555;
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
   display: block;
 }
 
@@ -276,11 +275,11 @@ span a {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 1rem;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .grievance-form button:hover {
@@ -295,7 +294,6 @@ span a {
   margin-bottom: 10px;
 }
 
-
 .user-info {
   display: flex;
   justify-content: space-between;
@@ -307,7 +305,7 @@ span a {
   color: blue;
   display: flex;
   align-items: center;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .user-info span {

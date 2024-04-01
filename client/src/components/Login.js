@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import CollegeInfo from "./CollegeInfo"
+import CollegeInfo from "./CollegeInfo";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 //import "./Login.css"
@@ -44,7 +44,7 @@ const Login = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate("/");
+          navigate("/home");
         }, 1000);
       } else {
         handleError(message);
@@ -61,11 +61,11 @@ const Login = () => {
 
   return (
     <div >
-    <div className = "college-info-container">
+    <div className = "college-info-container" style = {{marginBottom : "70px"}}>
       <CollegeInfo></CollegeInfo>
     </div>
     <div className="form_container">
-      
+
       <h2>Login Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -96,6 +96,7 @@ const Login = () => {
       <ToastContainer />
     </div>
     </div>
+
   );
 };
 

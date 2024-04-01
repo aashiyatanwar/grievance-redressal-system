@@ -47,7 +47,7 @@ const Signup = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          navigate("/");
+          navigate("/home");
         }, 1000);
       } else {
         handleError(message);
@@ -69,7 +69,7 @@ const Signup = () => {
 
   return (
     <>
-    <div className = "college-info-container">
+    <div className = "college-info-container" style = {{marginBottom : "70px"}}>
       <CollegeInfo></CollegeInfo>
     </div>
     <div className="form_container">
