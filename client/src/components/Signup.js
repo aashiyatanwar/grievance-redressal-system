@@ -2,20 +2,28 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import CollegeInfo from "./CollegeInfo"
+import CollegeInfo from "./CollegeInfo";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
-    password: "",
-    name : "",
+    name: "",
     enrollment_no: "",
-    fathers_name : "",
-    mothers_name : "",
-    mobile: ""
+    fathers_name: "",
+    mothers_name: "",
+    mobile: "",
+    password: "",
   });
-  const { email, password, enrollment_no, name, fathers_name, mothers_name, mobile } = inputValue;
+  const {
+    email,
+    enrollment_no,
+    name,
+    fathers_name,
+    mothers_name,
+    mobile,
+    password,
+  } = inputValue;
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -58,100 +66,129 @@ const Signup = () => {
     setInputValue({
       ...inputValue,
       email: "",
-        password: "",
-        name : "",
-        enrollment_no: "",
-        fathers_name : "",
-        mothers_name : "",
-        mobile: ""
+      name: "",
+      enrollment_no: "",
+      fathers_name: "",
+      mothers_name: "",
+      mobile: "",
+      password: "",
     });
   };
 
   return (
     <>
-    <div className = "college-info-container" style = {{marginBottom : "70px"}}>
       <CollegeInfo></CollegeInfo>
-    </div>
-    <div className="form_container">
-      <h2>Signup Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={handleOnChange}
-          />
+
+      <main className="w-full h-full flex flex-col items-center justify-center px-4 mb-10">
+        <div className="max-w-2xl w-full">
+          <div className="bg-white rounded-lg shadow-lg hover:shadow-xl mx-auto">
+            <div className="text-center px-6 py-4">
+              <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+                Sign up
+              </h3>
+            </div>
+            <form onSubmit={handleSubmit} className="px-8 py-6 space-y-5">
+              <div className="flex flex-col">
+                <label className="font-medium">Email</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  name="email"
+                  onChange={handleOnChange}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 rounded-lg"
+                />
+              </div>
+              {/* Other input fields */}
+              <div className="flex flex-col">
+                <label className="font-medium">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={name}
+                  name="name"
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium">Enrollment No.</label>
+                <input
+                  type="text"
+                  required
+                  value={enrollment_no}
+                  name="enrollment_no"
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium">Father's Name</label>
+                <input
+                  type="text"
+                  required
+                  value={fathers_name}
+                  name="fathers_name"
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium">Mother's Name</label>
+                <input
+                  type="text"
+                  required
+                  value={mothers_name}
+                  name="mothers_name"
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium">Mobile No.</label>
+                <input
+                  type="text"
+                  required
+                  value={mobile}
+                  name="mobile"
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="font-medium">Password</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  name="password"
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+                Create account
+              </button>
+              <p className="text-center py-4">
+                Already have an account?{" "}
+                <a
+                  href="/login"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Log in
+                </a>
+              </p>
+            </form>
+          </div>
         </div>
-        <div>
-          <label htmlFor="email">Full Name</label>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            placeholder="Enter your full name"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Enrollment No.</label>
-          <input
-            type="text"
-            name="enrollment_no"
-            value={enrollment_no}
-            placeholder="Enter your enrollment number"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Father's Name</label>
-          <input
-            type="text"
-            name="fathers_name"
-            value={fathers_name}
-            placeholder="Enter your father's name"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Mother's Name</label>
-          <input
-            type="text"
-            name="mothers_name"
-            value={mothers_name}
-            placeholder="Enter your mother's name"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Mobile</label>
-          <input
-            type="text"
-            name="mobile"
-            value={mobile}
-            placeholder="Enter your mobile"
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-        <span>
-          Already have an account? <Link to={"/login"}>Login</Link>
-        </span>
-      </form>
-      <ToastContainer />
-    </div>
+      </main>
     </>
   );
 };

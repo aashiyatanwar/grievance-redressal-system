@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./AdminDashboard.css";
 import CollegeInfo from "./CollegeInfo";
 import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
   const navigate = useNavigate();
   const [grievances, setGrievances] = useState([]);
+  const [statuses, setStatuses] = useState([]);
+  const [resolvedCount, setResolvedCount] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  console.log("loggedin" , loggedIn)
+  const [statusFilter, setStatusFilter] = useState("");
+  const [departmentFilter, setDepartmentFilter] = useState("");
+  console.log("loggedin", loggedIn);
 
   useEffect(() => {
     localStorage.setItem("adminLoggedIn", true);
     const adminLoggedIn = localStorage.getItem("adminLoggedIn");
-    console.log("adminLoggedin" , adminLoggedIn)
+    console.log("adminLoggedin", adminLoggedIn);
     if (adminLoggedIn === "true" && loggedIn) {
       // Navigate to the dashboard page
       navigate("/admin");
@@ -76,7 +80,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
   };
 
   const handleLogout = () => {
-    console.log("logout")
+    console.log("logout");
     // Clear admin's authentication state
     setLoggedIn(false);
     // Clear authentication state from local storage
@@ -85,98 +89,250 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
     navigate("/admin/login");
   };
 
+  useEffect(() => {
+    const resolved = grievances.filter(
+      (status) => status.status === "Resolved"
+    );
+    console.log("resolve", resolved);
+    const pending = grievances.filter((status) => status.status === "Pending");
+    setResolvedCount(resolved.length);
+    setPendingCount(pending.length);
+  }, [grievances]);
+
+  const handleFilterChange = (e) => {
+    if (e.target.name === "status") {
+      setStatusFilter(e.target.value);
+    } else if (e.target.name === "department") {
+      setDepartmentFilter(e.target.value);
+    }
+  };
+
+  const filterGrievances = () => {
+    let filteredStatuses = [...grievances];
+
+    if (startDate && endDate) {
+      filteredStatuses = filteredStatuses.filter(
+        (status) =>
+          new Date(status.dateOfSubmission) >= new Date(startDate) &&
+          new Date(status.dateOfSubmission) <= new Date(endDate)
+      );
+    }
+
+    if (statusFilter) {
+      filteredStatuses = filteredStatuses.filter(
+        (status) => status.status === statusFilter
+      );
+    }
+
+    if (departmentFilter) {
+      filteredStatuses = filteredStatuses.filter(
+        (status) => status.department === departmentFilter
+      );
+    }
+
+    return filteredStatuses;
+  };
+
+  const filteredStatuses = filterGrievances();
+  console.log(filteredStatuses);
+
   return (
-    <div className="home_page">
-      <div className="college-info-container" style = {{left : 450}}>
-        <CollegeInfo />
-      </div>
-      <div className = "form-container">
-      <h2 style = {{textAlign : "center"}}>List of Grievances</h2>
-      <hr />
-        <div className="user-info">
-        <h6>Welcome admin!</h6>
-          <button onClick={handleLogout} >LOGOUT</button>
+    <div>
+      <CollegeInfo />
+
+      <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-xl m-7 border border-gray-200">
+        <h2 className="text-2xl font-bold mb-4 text-center">ADMIN DASHBOARD</h2>
+        <hr className="my-2" />
+        <div className="flex justify-between items-center mb-4">
+          <h6>Welcome admin!</h6>
+          <button
+            onClick={handleLogout}
+            className="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            LOGOUT
+          </button>
         </div>
-      <div className="filter-container">
-        <label htmlFor="startDate">Start Date of Submission:</label>
-        <input
-          type="date"
-          id="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <label htmlFor="endDate">End Date of Submission:</label>
-        <input
-          type="date"
-          id="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-      </div>
-     
-      <table>
-        <thead>
-          <tr>
-            <th>S.No.</th>
-            <th>Detail</th>
-            <th>Date of Submission</th>
-            <th>Remarks</th>
-            <th>Date of Redressal</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {grievances.map((grievance, index) => (
-            <tr key={grievance._id}>
-              <td>{index + 1}</td>
-              <td>{grievance.detail}</td>
-              <td>
-                {new Date(grievance.dateOfSubmission).toLocaleDateString()}
-              </td>
-              <td>{grievance.remarks}</td>
-              <td>
-                {grievance.dateOfRedressal
-                  ? new Date(grievance.dateOfRedressal).toLocaleDateString()
-                  : "-"}
-              </td>
-              <td>{grievance.status}</td>
-              <td>
-                {grievance.status === "Pending" && (
-                  <input
-                    type="text"
-                    placeholder="Enter remarks"
-                    onChange={(e) => {
-                      const updatedGrievances = [...grievances];
-                      updatedGrievances.find(
-                        (g) => g._id === grievance._id
-                      ).remarks = e.target.value;
-                      setGrievances(updatedGrievances);
-                    }}
-                  />
-                )}
-                <button
-                  onClick={() =>
-                    handleUpdateGrievance(grievance._id, {
-                      remarks: grievance.remarks,
-                      status:
-                        grievance.status === "Pending" ? "Resolved" : "Pending",
-                    })
-                  }
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 space-y-2 md:space-y-0 md:space-x-4 p-6">
+          <div className="flex items-center">
+            <label
+              htmlFor="startDate"
+              className="text-gray-700 mr-2 font-semibold"
+            >
+              Start Date:
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-indigo-500"
+            />
+          </div>
+          <div className="flex items-center">
+            <label
+              htmlFor="endDate"
+              className="text-gray-700 mr-2 font-semibold"
+            >
+              End Date:
+            </label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-indigo-500"
+            />
+          </div>
+          <div className="flex items-center">
+            <label
+              htmlFor="statusFilter"
+              className="text-gray-700 mr-2 font-semibold"
+            >
+              Status:
+            </label>
+            <select
+              id="statusFilter"
+              name="status"
+              value={statusFilter}
+              onChange={handleFilterChange}
+              className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-indigo-500 appearance-none"
+            >
+              <option value="">All</option>
+              <option value="Resolved" className="text-green-600 ">
+                Resolved
+              </option>
+              <option value="Pending" className="text-red-600 ">
+                Pending
+              </option>
+            </select>
+          </div>
+          <div className="flex items-center">
+            <label
+              htmlFor="departmentFilter"
+              className="text-gray-700 mr-2 font-semibold"
+            >
+              Department:
+            </label>
+            <select
+              id="departmentFilter"
+              name="department"
+              value={departmentFilter}
+              onChange={handleFilterChange}
+              className="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-indigo-500 appearance-none"
+            >
+              <option value="">All</option>
+              <option value="Canteen">Canteen</option>
+              <option value="Departmental">Departmental</option>
+              <option value="Head-Faculty">Head-Faculty</option>
+              <option value="Sports">Sports</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border border-black-500">
+            <thead className="bg-blue-500 text-white">
+              <tr>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  S.No.
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Detail
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Date of Submission
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Department
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Remarks
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Date of Redressal
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Status
+                </th>
+                <th className="px-4 py-2 border-r border-h border-black-500">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredStatuses.map((grievance, index) => (
+                <tr
+                  key={grievance._id}
+                  className={index % 2 === 0 ? "bg-gray-200" : "bg-white"}
                 >
-                  {grievance.status === "Pending"
-                    ? "Mark as Resolved"
-                    : "Mark as Pending"}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {index + 1}
+                  </td>
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {grievance.detail}
+                  </td>
+
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {new Date(grievance.dateOfSubmission).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {grievance.department}
+                  </td>
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {grievance.remarks}
+                  </td>
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {grievance.dateOfRedressal
+                      ? new Date(grievance.dateOfRedressal).toLocaleDateString()
+                      : "-"}
+                  </td>
+
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {grievance.status}
+                  </td>
+                  <td className="px-4 py-2 border-r border-h border-black-500 flex items-center">
+                    {grievance.status === "Pending" && (
+                      <input
+                        type="text"
+                        placeholder="Enter remarks"
+                        onChange={(e) => {
+                          const updatedGrievances = [...grievances];
+                          updatedGrievances.find(
+                            (g) => g._id === grievance._id
+                          ).remarks = e.target.value;
+                          setGrievances(updatedGrievances);
+                        }}
+                        className="border border-gray-300 rounded px-2 py-2 mr-2 focus:outline-none focus:border-indigo-500"
+                      />
+                    )}
+                    <button
+                      onClick={() =>
+                        handleUpdateGrievance(grievance._id, {
+                          remarks: grievance.remarks,
+                          status:
+                            grievance.status === "Pending"
+                              ? "Resolved"
+                              : "Pending",
+                        })
+                      }
+                      className={`px-4 py-2 ${
+                        grievance.status === "Pending"
+                          ? "bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:bg-green-600 m-4"
+                          : "bg-red-500 text-white hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 m-4"
+                      } rounded-md`}
+                    >
+                      {grievance.status === "Pending" ? "Resolved" : "Pending"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 };
 
 export default AdminDashboard;
-

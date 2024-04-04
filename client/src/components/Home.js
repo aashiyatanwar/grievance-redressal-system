@@ -1,68 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useCookies } from "react-cookie";
-// import axios from "axios";
-// import { ToastContainer, toast } from "react-toastify";
-// import CollegeInfo from "./CollegeInfo";
-// import GrievanceForm from "./GrievanceFrom";
-// import GrievanceStatus from "./GrievanceStatus"
-
-// const Home = () => {
-//   const navigate = useNavigate();
-//   const [cookies, removeCookie] = useCookies([]);
-//   const [user, setUser] = useState([]);
-//   const [showForm, setShowForm] = useState(false);
-//   useEffect(() => {
-//     const verifyCookie = async () => {
-//       if (!cookies.token) {
-//         navigate("/login");
-//       }
-//       const { data } = await axios.post(
-//         "http://localhost:5000",
-//         {},
-//         { withCredentials: true }
-//       );
-//       console.log(data);
-//       const { status, user } = data;
-//       console.log("home", user);
-//       setUser(user);
-//       return status
-//         ? toast(`Hello ${user}`, {
-//             position: "top-right",
-//           })
-//         : (removeCookie("token"), navigate("/login"));
-//     };
-//     verifyCookie();
-//   }, [cookies, navigate, removeCookie]);
-//   const Logout = () => {
-//     removeCookie("token");
-//     navigate("/signup");
-//   };
-//   return (
-//     <div className="home_page">
-//       <div className="college-info-container" style={{ paddingTop: "1rem" , zIndex : 2, position : "relative" , marginTop : "90px"}}>
-//         <CollegeInfo />
-//       </div>
-
-//       <div className="form-container" style = {{marginTop : "50px"}}>
-//         <h6>Grievances Redressal Dashboard</h6>
-//         <hr></hr>
-//         <div className="user-info">
-//       <h6>
-//         Welcome, {user.name}!
-//       </h6>
-//       <button onClick={Logout}>LOGOUT</button>
-//     </div>
-
-//         <GrievanceForm user={user}></GrievanceForm>
-//         <GrievanceStatus user = {user}/>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Home;
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -71,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import CollegeInfo from "./CollegeInfo";
 import GrievanceForm from "./GrievanceFrom";
 import GrievanceStatus from "./GrievanceStatus";
-//import "./home.css"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -108,31 +42,68 @@ const Home = () => {
     navigate("/signup");
   };
 
+  const toggleForm = () => {
+    setShowForm(!showForm);
+    setShowStatus(false); // Close status if form is opened
+  };
+
+  const toggleStatus = () => {
+    setShowStatus(!showStatus);
+    setShowForm(false); // Close form if status is opened
+  };
+
   return (
-    <div className="home_page">
-      <div className="college-info-container" style = {{textAlign : "center" , marginBottom : "2rem" ,  left : 400}}>
-        <CollegeInfo />
-      </div>
+    <div>
+      <CollegeInfo />
 
-      <div className="form-container">
-        <h6>Grievances Redressal Dashboard</h6>
-        <hr />
-        <div className="user-info">
-          <h6>Welcome, {user.name}!</h6>
-          <button onClick={Logout}>LOGOUT</button>
+      <div class="max-w-8xl mx-auto p-6">
+        <div class="bg-white shadow-lg rounded-lg border border-gray-200">
+          <div class="p-4">
+            <h3 class="text-center text-2xl font-semibold tracking-tight text-gray-900 sm:text-2xl mb-4 p-5">
+              Grievance Redressal Dashboard
+            </h3>
+
+            <div class="bg-white shadow-lg rounded-lg border border-gray-200 ">
+              <div class="flex items-center justify-between px-4 py-2 sm:px-6 lg:py-3 lg:px-8">
+                <h6 class="text-lg font-semibold text-black dark:text-black">
+                  <span class="block">Welcome, {user.name}!</span>
+                </h6>
+                <div class="lg:mt-0 lg:flex-shrink-0">
+                  <div class="inline-flex rounded-md shadow">
+                    <button
+                      type="button"
+                      onClick={Logout}
+                      class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center py-12">
+              <button
+                onClick={toggleForm}
+                class="py-2 px-4 bg-blue-500 hover:bg-blue-600 focus:ring-blue-400 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg mr-4"
+              >
+                Submit Grievance
+              </button>
+              <button
+                onClick={toggleStatus}
+                class="py-2 px-4 bg-blue-500 hover:bg-blue-600 focus:ring-blue-400 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+              >
+                Grievance Redressal Status
+              </button>
+            </div>
+
+            {showForm && <GrievanceForm user={user} onClose={toggleForm} />}
+            {showStatus && (
+              <GrievanceStatus user={user} onClose={toggleStatus} />
+            )}
+          </div>
         </div>
-
-        <div className="buttons-container">
-          <button onClick={() => setShowForm(true)}>Submit Grievance</button>
-          <button onClick={() => setShowStatus(true)}>
-            Grievance Redressal Status
-          </button>
-        </div>
-
-        {showForm && <GrievanceForm user={user} />}
-        {showStatus && <GrievanceStatus user={user} />}
       </div>
-      
     </div>
   );
 };

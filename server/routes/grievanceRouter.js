@@ -1,7 +1,16 @@
-const {Grievance , createGrievanceRedressalStatus , getAllGrievanceRedressalStatuses,getAllGrievanceRedressalStatusesbyDate ,getGrievanceRedressalStatusById, updateGrievanceRedressalStatus, deleteGrievanceRedressalStatus , getGrievanceRedressalStatusByUser} = require("../controllers/grievanceCtrl")
+const {
+  Grievance,
+  createGrievanceRedressalStatus,
+  getAllGrievanceRedressalStatuses,
+  getAllGrievanceRedressalStatusesbyDate,
+  getGrievanceRedressalStatusById,
+  updateGrievanceRedressalStatus,
+  deleteGrievanceRedressalStatus,
+  getGrievanceRedressalStatusByUser,
+} = require("../controllers/grievanceCtrl");
 
-const router = require('express').Router()
-router.post("/postGrievance/:userId" , Grievance)
+const router = require("express").Router();
+router.post("/postGrievance/:userId", Grievance);
 router.post("/postStatus/:grievanceId", createGrievanceRedressalStatus);
 
 // Get all grievance redressal statuses
@@ -16,7 +25,6 @@ router.put("/update/:id", updateGrievanceRedressalStatus);
 // Delete a grievance redressal status
 router.delete("/delete/:id", deleteGrievanceRedressalStatus);
 router.get("/user/:userId", getGrievanceRedressalStatusByUser);
-router.get("/getByDate" , getAllGrievanceRedressalStatusesbyDate)
+router.get("/getByDate", getAllGrievanceRedressalStatusesbyDate);
 
-
-module.exports = router
+module.exports = router;

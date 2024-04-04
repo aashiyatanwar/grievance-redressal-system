@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import CollegeInfo from "./CollegeInfo";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-//import "./Login.css"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -60,43 +59,60 @@ const Login = () => {
   };
 
   return (
-    <div >
-    <div className = "college-info-container" style = {{marginBottom : "70px"}}>
+    <div>
       <CollegeInfo></CollegeInfo>
-    </div>
-    <div className="form_container">
 
-      <h2>Login Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={handleOnChange}
-          />
+      <div className="w-full h-full flex items-center justify-center mb-10">
+        <div className="max-w-2xl w-full bg-white rounded-lg shadow-lg hover:shadow-xl">
+          <main className="px-8 py-12 text-gray-600">
+            <div className="text-center">
+              <div className="space-y-2">
+                <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+                  Login
+                </h3>
+              </div>
+            </div>
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              <div className="flex flex-col">
+                <label className="font-medium">Email</label>
+                <input
+                  type="email"
+                  required
+                  name="email"
+                  value={email}
+                  onChange={handleOnChange}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="font-medium">Password</label>
+                <input
+                  type="password"
+                  required
+                  name="password"
+                  value={password}
+                  onChange={handleOnChange}
+                  style={{ width: "calc(100% - 0.1rem)" }}
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+                Sign in
+              </button>
+              <p className="text-center">
+                Don't have an account?{" "}
+                <a
+                  href="/signup"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Sign up
+                </a>
+              </p>
+            </form>
+          </main>
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-        <span>
-          Don't have an account? <Link to={"/signup"}>Signup</Link>
-        </span>
-      </form>
-      <ToastContainer />
+      </div>
     </div>
-    </div>
-
   );
 };
 
