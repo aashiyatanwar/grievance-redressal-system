@@ -65,6 +65,8 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
   const handleUpdateGrievance = (id, newData) => {
     // Update grievance on backend
     newData.dateOfRedressal = new Date();
+    // Ensure the status is set to "Resolved" and not toggling back to "Pending"
+    newData.status = "Resolved";
     axios
       .put(`http://localhost:5000/admin/grievance/update/${id}`, newData)
       .then((response) => {
@@ -78,7 +80,6 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
         console.error("Error updating grievance:", error);
       });
   };
-
   const handleLogout = () => {
     console.log("logout");
     // Clear admin's authentication state
@@ -237,6 +238,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                 <th className="px-4 py-2 border-r border-h border-black-500">
                   S.No.
                 </th>
+                
                 <th className="px-4 py-2 border-r border-h border-black-500">
                   Detail
                 </th>
@@ -269,6 +271,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                   <td className="px-4 py-2 border-r border-h border-black-500">
                     {index + 1}
                   </td>
+                  
                   <td className="px-4 py-2 border-r border-h border-black-500">
                     {grievance.detail}
                   </td>
@@ -288,42 +291,55 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                       : "-"}
                   </td>
 
-                  <td className="px-4 py-2 border-r border-h border-black-500">
+                  <td
+                    className={`px-4 py-2 border-r border-h border-black-500 ${
+                      grievance.status === "Resolved"
+                        ? "text-green-600"
+                        : grievance.status === "Pending"
+                        ? "text-red-600"
+                        : ""
+                    }`}
+                  >
                     {grievance.status}
                   </td>
-                  <td className="px-4 py-2 border-r border-h border-black-500 flex items-center">
-                    {grievance.status === "Pending" && (
-                      <input
-                        type="text"
-                        placeholder="Enter remarks"
-                        onChange={(e) => {
-                          const updatedGrievances = [...grievances];
-                          updatedGrievances.find(
-                            (g) => g._id === grievance._id
-                          ).remarks = e.target.value;
-                          setGrievances(updatedGrievances);
-                        }}
-                        className="border border-gray-300 rounded px-2 py-2 mr-2 focus:outline-none focus:border-indigo-500"
-                      />
+
+                  <td className="px-4 py-2 border-r border-h border-black-500">
+                    {grievance.status === "Pending" ? (
+                      <div className="flex flex-col">
+                        <input
+                          type="text"
+                          placeholder="Enter remarks"
+                          onChange={(e) => {
+                            const updatedGrievances = [...grievances];
+                            const updatedGrievance = updatedGrievances.find(
+                              (g) => g._id === grievance._id
+                            );
+                            updatedGrievance.remarks = e.target.value;
+                            setGrievances(updatedGrievances);
+                          }}
+                          className="border border-gray-300 rounded px-2 py-2 mb-2 focus:outline-none focus:border-indigo-500"
+                        />
+                        <button
+                          onClick={() =>
+                            handleUpdateGrievance(grievance._id, {
+                              remarks: grievance.remarks,
+                            })
+                          }
+                          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
+                        >
+                          Resolve
+                        </button>
+                      </div>
+                    ) : (
+                      <div>
+                        <button
+                          className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                          disabled
+                        >
+                          Resolved
+                        </button>
+                      </div>
                     )}
-                    <button
-                      onClick={() =>
-                        handleUpdateGrievance(grievance._id, {
-                          remarks: grievance.remarks,
-                          status:
-                            grievance.status === "Pending"
-                              ? "Resolved"
-                              : "Pending",
-                        })
-                      }
-                      className={`px-4 py-2 ${
-                        grievance.status === "Pending"
-                          ? "bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:bg-green-600 m-4"
-                          : "bg-red-500 text-white hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600 m-4"
-                      } rounded-md`}
-                    >
-                      {grievance.status === "Pending" ? "Resolved" : "Pending"}
-                    </button>
                   </td>
                 </tr>
               ))}

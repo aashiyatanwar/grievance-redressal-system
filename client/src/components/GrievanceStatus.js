@@ -73,7 +73,7 @@ const GrievanceStatus = ({ user }) => {
   const filteredStatuses = filterGrievances();
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-xl m-7 border border-gray-200">
+    <div className="max-w-10xl mx-auto p-6 bg-white rounded-lg shadow-xl m-7 border border-gray-200">
       <h2 className="text-2xl font-bold mb-8 text-center">
         Grievance Redressal Status
       </h2>

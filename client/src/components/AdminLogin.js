@@ -44,7 +44,7 @@ const AdminLogin = ({ setLoggedIn }) => {
             <div className="text-center">
               <div className="space-y-2">
                 <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
-                  Login
+                  Admin Login
                 </h3>
               </div>
             </div>
