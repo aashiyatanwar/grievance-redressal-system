@@ -1,23 +1,25 @@
-const User = require("../models/user");
-const { createSecretToken } = require("../util/SecretToken");
+const Faculty = require("../models/faculty");
+const { createSecretTokenFac } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
 
 module.exports.Signup = async (req, res, next) => {
   try {
-    const { email, password, name, fathers_name, mothers_name, enrollment_no, mobile, createdAt } = req.body;
-    const existingUser = await User.findOne({ email });
+    const { email, password, name, mobile, createdAt } = req.body;
+    const existingUser = await Faculty.findOne({ email });
     if (existingUser) {
       return res.json({ message: "User already exists" });
     }
-    const user = await User.create({ email, password, name, fathers_name, mothers_name, enrollment_no,mobile, createdAt });
-    const token = createSecretToken(user._id);
-    res.cookie("token", token, {
+    const faculty = await Faculty.create({ email, password, name,mobile, createdAt });
+    const token_fac = createSecretTokenFac(faculty._id);
+    console.log("signu-fac: " ,token_fac)
+    res.cookie("token_fac", token_fac, {
       withCredentials: true,
       httpOnly: false,
     });
+    console.log("cookie" , res.cookie)
     res
       .status(201)
-      .json({ message: "User signed in successfully", success: true, user });
+      .json({ message: "User signed in successfully", success: true, faculty });
     next();
   } catch (error) {
     console.error(error);
@@ -30,20 +32,21 @@ module.exports.Login = async (req, res, next) => {
       if(!email || !password ){
         return res.json({message:'All fields are required'})
       }
-      const user = await User.findOne({ email });
-      if(!user){
+      const faculty = await Faculty.findOne({ email });
+      if(!faculty){
         return res.json({message:'Incorrect password or email' }) 
       }
-      const auth = await bcrypt.compare(password,user.password)
+      const auth = await bcrypt.compare(password,faculty.password)
       if (!auth) {
         return res.json({message:'Incorrect password or email' }) 
       }
-       const token = createSecretToken(user._id);
-       console.log("login-token-st" , token)
-       res.cookie("token", token, {
+       const token_fac = createSecretTokenFac(faculty._id);
+       console.log("login-token-fac" , token_fac)
+       res.cookie("token_fac", token_fac, {
          withCredentials: true,
          httpOnly: false,
        });
+       console.log("cookie" , res.cookie)
        res.status(201).json({ message: "User logged in successfully", success: true });
        next()
     } catch (error) {

@@ -6,3 +6,9 @@ module.exports.createSecretToken = (id) => {
     expiresIn: 3 * 24 * 60 * 60,
   });
 };
+
+module.exports.createSecretTokenFac = (id) => {
+  return jwt.sign({ id }, process.env.TOKEN_KEY_FAC, {
+    expiresIn: 3 * 24 * 60,
+  });
+};

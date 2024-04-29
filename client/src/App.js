@@ -6,6 +6,9 @@ import Signup from "./components/Signup";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import Main from "./components/Main";
+import FacultyDashboard from "./components/FacultyDashboard"; // Import the FacultyDashboard component
+import FacultyLogin from "./components/FacultyLogin"; // Import the FacultyLogin component
+import FacultySignup from "./components/FacultySignup"; // Import the FacultySignup component
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -27,6 +30,9 @@ function App() {
             <AdminDashboard loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           }
         />
+        <Route path="/faculty/login" element={<FacultyLogin />} /> {/* Add route for FacultyLogin */}
+        <Route path="/faculty/signup" element={<FacultySignup />} /> {/* Add route for FacultySignup */}
+        <Route path="/faculty/dashboard" element={<FacultyDashboard />} /> {/* Add route for FacultyDashboard */}
       </Routes>
     </div>
   );

@@ -77,7 +77,7 @@ const GrievanceForm = ({ user }) => {
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Select Department:
+            Select Grievance Area:
           </label>
           <div className="relative">
             <select
@@ -86,7 +86,7 @@ const GrievanceForm = ({ user }) => {
               className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               required
             >
-              <option value="">Select Department</option>
+              <option value="">Select Grievance Area</option>
               <option value="Canteen">Canteen</option>
               <option value="Departmental">Departmental</option>
               <option value="Sports">Sports</option>

@@ -19,7 +19,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
     localStorage.setItem("adminLoggedIn", true);
     const adminLoggedIn = localStorage.getItem("adminLoggedIn");
     console.log("adminLoggedin", adminLoggedIn);
-    if (adminLoggedIn === "true" && loggedIn) {
+    if (adminLoggedIn === "true") {
       // Navigate to the dashboard page
       navigate("/admin");
     } else {
@@ -134,6 +134,10 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
     return filteredStatuses;
   };
 
+  const handlePrintRedressals = () => {
+    window.print(); // Trigger browser's print dialog
+  };
+
   const filteredStatuses = filterGrievances();
   console.log(filteredStatuses);
 
@@ -142,18 +146,30 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
       <CollegeInfo />
 
       <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-xl m-7 border border-gray-200">
-        <h2 className="text-2xl font-bold mb-4 text-center">ADMIN DASHBOARD</h2>
-        <hr className="my-2" />
-        <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold mb-4 text-center print:hidden">
+          ADMIN DASHBOARD
+        </h2>
+        <hr className="my-2 print:hidden" />
+        <div className="flex justify-between items-center mb-4 print:hidden">
           <h6>Welcome admin!</h6>
-          <button
-            onClick={handleLogout}
-            className="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-          >
-            LOGOUT
-          </button>
+
+          <div className="flex space-x-4">
+            <button
+              onClick={handlePrintRedressals}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            >
+              Generate Report
+            </button>
+            <button
+              onClick={handleLogout}
+              className="px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            >
+              Logout
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 space-y-2 md:space-y-0 md:space-x-4 p-6">
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 space-y-2 md:space-y-0 md:space-x-4 p-6 print:hidden">
           <div className="flex items-center">
             <label
               htmlFor="startDate"
@@ -212,7 +228,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
               htmlFor="departmentFilter"
               className="text-gray-700 mr-2 font-semibold"
             >
-              Department:
+              Grievance Area:
             </label>
             <select
               id="departmentFilter"
@@ -238,7 +254,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                 <th className="px-4 py-2 border-r border-h border-black-500">
                   S.No.
                 </th>
-                
+
                 <th className="px-4 py-2 border-r border-h border-black-500">
                   Detail
                 </th>
@@ -246,7 +262,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                   Date of Submission
                 </th>
                 <th className="px-4 py-2 border-r border-h border-black-500">
-                  Department
+                  Grievance Area
                 </th>
                 <th className="px-4 py-2 border-r border-h border-black-500">
                   Remarks
@@ -271,7 +287,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                   <td className="px-4 py-2 border-r border-h border-black-500">
                     {index + 1}
                   </td>
-                  
+
                   <td className="px-4 py-2 border-r border-h border-black-500">
                     {grievance.detail}
                   </td>

@@ -7,7 +7,7 @@ import CollegeInfo from "./CollegeInfo";
 import GrievanceForm from "./GrievanceFrom";
 import GrievanceStatus from "./GrievanceStatus";
 
-const Home = () => {
+const FacultyDashboard = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
   const [user, setUser] = useState([]);
@@ -16,31 +16,32 @@ const Home = () => {
 
   useEffect(() => {
     const verifyCookie = async () => {
-      console.log("cookies" , cookies.token)
-      if (!cookies.token) {
-        navigate("/login");
+      console.log("cookies" , cookies.token_fac)
+      if (!cookies.token_fac) {
+        navigate("/faculty/login");
       }
       const { data } = await axios.post(
-        "http://localhost:5000",
+        "http://localhost:5000/faculty",
         {},
         { withCredentials: true }
       );
       console.log(data);
-      const { status, user } = data;
-      console.log("home", user);
-      setUser(user);
+      const { status, faculty } = data;
+      console.log("home", faculty);
+      setUser(faculty);
+     
       return status
         ? toast(`Hello ${user}`, {
             position: "top-right",
           })
-        : (removeCookie("token"), navigate("/login"));
+        : (removeCookie("token"), navigate("/faculty/login"));
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
 
   const Logout = () => {
     removeCookie("token");
-    navigate("/signup");
+    navigate("/faculty/signup");
   };
 
   const toggleForm = () => {
@@ -109,4 +110,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default FacultyDashboard;

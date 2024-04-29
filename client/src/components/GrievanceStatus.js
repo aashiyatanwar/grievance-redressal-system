@@ -133,7 +133,7 @@ const GrievanceStatus = ({ user }) => {
             htmlFor="departmentFilter"
             className="text-gray-700 mr-2 font-semibold"
           >
-            Department:
+            Grievance Area:
           </label>
           <select
             id="departmentFilter"
