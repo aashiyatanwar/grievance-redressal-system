@@ -16,7 +16,7 @@ const GrievanceStatus = ({ user }) => {
         if (user && user.id) {
           console.log("user" , user , user.id)
           const response = await axios.get(
-            `http://localhost:5000/grievance/user/${user.id}`
+            `http://localhost:5000/faculty/faculty/${user.id}`
           );
           console.log("response" , response.data)
           setStatuses(response.data.data);

@@ -1,15 +1,56 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const adminSchema = new mongoose.Schema({
+// const adminSchema = new mongoose.Schema({
+//   username: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
+// module.exports = mongoose.model('Admin', adminSchema);
+
+const { Sequelize, DataTypes } = require('sequelize');
+
+// Create a Sequelize instance
+const sequelize = new Sequelize({
+  dialect: 'mysql',      // Specify the database dialect
+  host: 'localhost',     // Database host
+  username: 'aashiya', // Database username
+  password: 'aashiya123!', // Database password
+  database: 'grievance_management', // Database name
+});
+
+// Define the Admin model
+const Admin = sequelize.define('Admin', {
   username: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING,
+    allowNull: false,
     unique: true,
   },
   password: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 
-module.exports = mongoose.model('Admin', adminSchema);
+// Synchronize the model with the database
+(async () => {
+  try {
+    await sequelize.sync(); // This will create the Admin table if it doesn't exist
+    console.log('Admin table synced successfully.');
+  } catch (error) {
+    console.error('Error syncing Admin table:', error);
+  }
+})();
+
+// Export the Admin model
+module.exports = Admin;
+
+
+
+

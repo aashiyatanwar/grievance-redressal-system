@@ -1,5 +1,5 @@
 const {
-  Grievance,
+  createGrievanceByUser,
   createGrievanceRedressalStatus,
   getAllGrievanceRedressalStatuses,
   getAllGrievanceRedressalStatusesbyDate,
@@ -10,7 +10,7 @@ const {
 } = require("../controllers/grievanceCtrl");
 
 const router = require("express").Router();
-router.post("/postGrievance/:userId", Grievance);
+router.post("/postGrievance/:userId", createGrievanceByUser);
 router.post("/postStatus/:grievanceId", createGrievanceRedressalStatus);
 
 // Get all grievance redressal statuses

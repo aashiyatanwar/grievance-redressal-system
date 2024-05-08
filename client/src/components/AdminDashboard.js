@@ -27,9 +27,9 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
     }
   }, [loggedIn, navigate]);
 
-  useEffect(() => {
-    fetchGrievances();
-  }, [startDate, endDate]);
+  // useEffect(() => {
+  //   fetchGrievances();
+  // }, [startDate, endDate]);
 
   useEffect(() => {
     // Fetch all grievances from backend
@@ -44,36 +44,68 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
       });
   }, []);
 
-  const fetchGrievances = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/admin/grievance/getByDate",
-        {
-          params: {
-            startDate,
-            endDate,
-          },
-        }
-      );
-      console.log("response-date", response.data);
-      setGrievances(response.data);
-    } catch (error) {
-      console.error("Error fetching grievances:", error);
-    }
-  };
+  // const fetchGrievances = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:5000/admin/grievance/getByDate",
+  //       {
+  //         params: {
+  //           startDate,
+  //           endDate,
+  //         },
+  //       }
+  //     );
+  //     console.log("response-date", response.data);
+  //     setGrievances(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching grievances:", error);
+  //   }
+  // };
+
+  // const handleUpdateGrievance = (id, newData) => {
+  //   console.log("id" , id)
+  //   // Update grievance on backend
+  //   newData.dateOfRedressal = new Date();
+  //   // Ensure the status is set to "Resolved" and not toggling back to "Pending"
+  //   newData.status = "Resolved";
+  //   axios
+  //     .put(`http://localhost:5000/admin/grievance/update/${id}`, newData)
+  //     .then((response) => {
+  //       console.log("update", response);
+  //       // Update state with the updated grievance
+  //       setGrievances(
+  //         grievances.map((g) => (g.id === id ? response.data : g))
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error updating grievance:", error);
+  //     });
+  // };
 
   const handleUpdateGrievance = (id, newData) => {
-    // Update grievance on backend
     newData.dateOfRedressal = new Date();
-    // Ensure the status is set to "Resolved" and not toggling back to "Pending"
     newData.status = "Resolved";
+
     axios
       .put(`http://localhost:5000/admin/grievance/update/${id}`, newData)
       .then((response) => {
-        console.log("update", response);
+        //console.log("update", response);
+
         // Update state with the updated grievance
-        setGrievances(
-          grievances.map((g) => (g._id === id ? response.data : g))
+        const updatedGrievance = response.data.grievance;
+        console.log("updatedGrievances", updatedGrievance);
+        setGrievances((prevGrievances) =>
+          prevGrievances.map((g) => {
+            console.log("prev", prevGrievances);
+            console.log("g", g);
+            if (g.id === id) {
+              console.log("Updating grievance:", g);
+              console.log("Updated grievance:", updatedGrievance);
+              return updatedGrievance; // Update the specific grievance
+            } else {
+              return g; // Return unchanged if not the updated grievance
+            }
+          })
         );
       })
       .catch((error) => {
@@ -281,7 +313,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
             <tbody>
               {filteredStatuses.map((grievance, index) => (
                 <tr
-                  key={grievance._id}
+                  key={grievance.id}
                   className={index % 2 === 0 ? "bg-gray-200" : "bg-white"}
                 >
                   <td className="px-4 py-2 border-r border-h border-black-500">
@@ -328,7 +360,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                           onChange={(e) => {
                             const updatedGrievances = [...grievances];
                             const updatedGrievance = updatedGrievances.find(
-                              (g) => g._id === grievance._id
+                              (g) => g.id === grievance.id
                             );
                             updatedGrievance.remarks = e.target.value;
                             setGrievances(updatedGrievances);
@@ -337,7 +369,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
                         />
                         <button
                           onClick={() =>
-                            handleUpdateGrievance(grievance._id, {
+                            handleUpdateGrievance(grievance.id, {
                               remarks: grievance.remarks,
                             })
                           }

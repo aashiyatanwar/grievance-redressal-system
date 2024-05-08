@@ -4,8 +4,8 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import CollegeInfo from "./CollegeInfo";
-import GrievanceForm from "./GrievanceFrom";
-import GrievanceStatus from "./GrievanceStatus";
+import GrievanceStatusFaculty from "./GrievanceStatusFaculty";
+import GrievanceFormFaculty from "./GrievanceFormFaculty";
 
 const FacultyDashboard = () => {
   const navigate = useNavigate();
@@ -99,9 +99,9 @@ const FacultyDashboard = () => {
               </button>
             </div>
 
-            {showForm && <GrievanceForm user={user} onClose={toggleForm} />}
+            {showForm && <GrievanceFormFaculty user={user} onClose={toggleForm} />}
             {showStatus && (
-              <GrievanceStatus user={user} onClose={toggleStatus} />
+              <GrievanceStatusFaculty user={user} onClose={toggleStatus} />
             )}
           </div>
         </div>

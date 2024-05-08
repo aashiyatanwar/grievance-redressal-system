@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const GrievanceForm = ({ user }) => {
+const GrievanceFormFaculty = ({ user }) => {
   const [grievanceDetails, setGrievanceDetails] = useState("");
   const [department, setDepartment] = useState("");
   const [showForm, setShowForm] = useState(false);
 
   const handleSubmit = async (e) => {
-    console.log("user" ,user.email)
+    console.log("user" ,user.id)
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5000/grievance/postGrievance/${user.id}`,
+        `http://localhost:5000/faculty/postGrievanceFaculty/${user.id}`,
         {
           detail: grievanceDetails,
           department: department,
@@ -110,4 +110,4 @@ const GrievanceForm = ({ user }) => {
   );
 };
 
-export default GrievanceForm;
+export default GrievanceFormFaculty;

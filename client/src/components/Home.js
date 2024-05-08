@@ -25,7 +25,7 @@ const Home = () => {
         {},
         { withCredentials: true }
       );
-      console.log(data);
+      console.log("data" , data);
       const { status, user } = data;
       console.log("home", user);
       setUser(user);
@@ -35,6 +35,8 @@ const Home = () => {
           })
         : (removeCookie("token"), navigate("/login"));
     };
+    
+    
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
 
