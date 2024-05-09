@@ -27,10 +27,6 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
     }
   }, [loggedIn, navigate]);
 
-  // useEffect(() => {
-  //   fetchGrievances();
-  // }, [startDate, endDate]);
-
   useEffect(() => {
     // Fetch all grievances from backend
     axios
@@ -44,43 +40,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
       });
   }, []);
 
-  // const fetchGrievances = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:5000/admin/grievance/getByDate",
-  //       {
-  //         params: {
-  //           startDate,
-  //           endDate,
-  //         },
-  //       }
-  //     );
-  //     console.log("response-date", response.data);
-  //     setGrievances(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching grievances:", error);
-  //   }
-  // };
 
-  // const handleUpdateGrievance = (id, newData) => {
-  //   console.log("id" , id)
-  //   // Update grievance on backend
-  //   newData.dateOfRedressal = new Date();
-  //   // Ensure the status is set to "Resolved" and not toggling back to "Pending"
-  //   newData.status = "Resolved";
-  //   axios
-  //     .put(`http://localhost:5000/admin/grievance/update/${id}`, newData)
-  //     .then((response) => {
-  //       console.log("update", response);
-  //       // Update state with the updated grievance
-  //       setGrievances(
-  //         grievances.map((g) => (g.id === id ? response.data : g))
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error updating grievance:", error);
-  //     });
-  // };
 
   const handleUpdateGrievance = (id, newData) => {
     newData.dateOfRedressal = new Date();

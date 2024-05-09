@@ -1,40 +1,3 @@
-// const mongoose = require("mongoose");
-// const bcrypt = require('bcrypt');
-
-
-// const facultySchema = new mongoose.Schema({
-//   email: {
-//     type: String,
-//     required: [true, "Your email address is required"],
-//     unique: true,
-//   },
-//   name: {
-//     type: String,
-//     required: [true, "Your name is required"],
-//     unique: true,
-//   },
-//   mobile: {
-//     type: String,
-//     required: [true, "Your mobile is required"],
-//     unique: true,
-//   },
-//   password: {
-//     type: String,
-//     required: [true, "Your password is required"],
-//   },
-
-//   createdAt: {
-//     type: Date,
-//     default: new Date(),
-//   },
-// });
-
-// facultySchema.pre("save", async function () {
-//   this.password = await bcrypt.hash(this.password, 12);
-// });
-
-// module.exports = mongoose.model("faculty", facultySchema);
-
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
@@ -75,7 +38,28 @@ const Faculty = sequelize.define('Faculty', {
 }, {
   hooks: {
     beforeCreate: async (faculty) => {
-      faculty.password = await bcrypt.hash(faculty.password, 12);
+      faculty.password // const mongoose = require("mongoose");
+
+      // const grievanceSchema = new mongoose.Schema(
+      //   {
+      //     detail: { type: String },
+      //     dateOfSubmission: { type: Date, default: Date.now },
+      //     remarks: { type: String },
+      //     dateOfRedressal: { type: Date },
+      //     user: { type: mongoose.Types.ObjectId, ref: "user" },
+      //     faculty: { type: mongoose.Types.ObjectId, ref: "faculty" },
+      //     status: { type: String, enum: ["Pending", "Resolved"], default: "Pending" },
+      //     department: {
+      //       type: String,
+      //       enum: ["Canteen", "Departmental", "Sports", "Head-Faculty", "Other"],
+      //     },
+      //   },
+      //   {
+      //     timestamps: true,
+      //   }
+      // );
+      
+      // module.exports = mongoose.model("grievance", grievanceSchema);= await bcrypt.hash(faculty.password, 12);
     },
   },
 });

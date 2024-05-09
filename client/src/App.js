@@ -30,9 +30,9 @@ function App() {
             <AdminDashboard loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           }
         />
-        <Route path="/faculty/login" element={<FacultyLogin />} /> {/* Add route for FacultyLogin */}
-        <Route path="/faculty/signup" element={<FacultySignup />} /> {/* Add route for FacultySignup */}
-        <Route path="/faculty/dashboard" element={<FacultyDashboard />} /> {/* Add route for FacultyDashboard */}
+        <Route path="/faculty/login" element={<FacultyLogin />} /> 
+        <Route path="/faculty/signup" element={<FacultySignup />} /> 
+        <Route path="/faculty/dashboard" element={<FacultyDashboard />} /> 
       </Routes>
     </div>
   );

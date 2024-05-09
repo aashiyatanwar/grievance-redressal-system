@@ -35,15 +35,6 @@ app.use("/grievance", grievanceRoute);
 app.use('/admin', adminRouter);
 app.use('/admin/grievance', grievanceRoute);
 
-
-// mongoose.set("strictQuery", true);
-// mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true });
-// mongoose.connection
-//   .once("open", () => console.log("Connected"))
-//   .on("error", (error) => {
-//     console.log(`Error : ${error}`);
-//   });
-
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
