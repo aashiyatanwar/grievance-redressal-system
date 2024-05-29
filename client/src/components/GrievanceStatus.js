@@ -174,7 +174,7 @@ const GrievanceStatus = ({ user }) => {
                 Date of Redress
               </th>
               <th className="px-4 py-2 bg-blue-500 border-r border-h border-black-500">
-                Department
+                Grievance Area
               </th>
               <th className="px-4 py-2 bg-blue-500 border-r border-h border-black-500">
                 Status
