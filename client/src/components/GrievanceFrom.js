@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+const baseURL = process.env.REACT_APP_BACKEND_URL;
 const GrievanceForm = ({ user }) => {
   const [grievanceDetails, setGrievanceDetails] = useState("");
   const [department, setDepartment] = useState("");
@@ -10,7 +11,7 @@ const GrievanceForm = ({ user }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5000/grievance/postGrievance/${user._id}`,
+        `${baseURL}/grievance/postGrievance/${user._id}`,
         {
           detail: grievanceDetails,
           department: department,

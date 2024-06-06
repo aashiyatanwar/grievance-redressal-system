@@ -4,6 +4,7 @@ import CollegeInfo from "./CollegeInfo";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
+const baseURL = process.env.REACT_APP_BACKEND_URL;
 const FacultyLogin = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
@@ -32,7 +33,7 @@ const FacultyLogin = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/faculty/login",
+        `${baseURL}/faculty/login`,
         {
           ...inputValue,
         },

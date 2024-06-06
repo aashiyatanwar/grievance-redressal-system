@@ -15,6 +15,9 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
   const [departmentFilter, setDepartmentFilter] = useState("");
   console.log("loggedin", loggedIn);
 
+  const baseURL = process.env.REACT_APP_BACKEND_URL;
+
+
   useEffect(() => {
     localStorage.setItem("adminLoggedIn", true);
     const adminLoggedIn = localStorage.getItem("adminLoggedIn");
@@ -34,7 +37,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
   useEffect(() => {
     // Fetch all grievances from backend
     axios
-      .get("http://localhost:5000/admin/grievance/getAll")
+      .get(`${baseURL}/admin/grievance/getAll`)
       .then((response) => {
         console.log(response.data.data);
         setGrievances(response.data.data);
@@ -47,7 +50,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
   const fetchGrievances = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/admin/grievance/getByDate",
+        `${baseURL}/admin/grievance/getByDate`,
         {
           params: {
             startDate,
@@ -68,7 +71,7 @@ const AdminDashboard = ({ loggedIn, setLoggedIn }) => {
     // Ensure the status is set to "Resolved" and not toggling back to "Pending"
     newData.status = "Resolved";
     axios
-      .put(`http://localhost:5000/admin/grievance/update/${id}`, newData)
+      .put(`${baseURL}admin/grievance/update/${id}`, newData)
       .then((response) => {
         console.log("update", response);
         // Update state with the updated grievance

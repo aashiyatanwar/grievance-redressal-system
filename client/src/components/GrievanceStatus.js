@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const baseURL = process.env.REACT_APP_BACKEND_URL;
 const GrievanceStatus = ({ user }) => {
   const [statuses, setStatuses] = useState([]);
   const [resolvedCount, setResolvedCount] = useState(0);
@@ -15,7 +16,7 @@ const GrievanceStatus = ({ user }) => {
       try {
         if (user && user._id) {
           const response = await axios.get(
-            `http://localhost:5000/grievance/user/${user._id}`
+            `${baseURL}/grievance/user/${user._id}`
           );
           setStatuses(response.data);
         } else {

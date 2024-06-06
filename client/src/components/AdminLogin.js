@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CollegeInfo from "./CollegeInfo";
 
+const baseURL = process.env.REACT_APP_BACKEND_URL;
+
 const AdminLogin = ({ setLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,7 +12,7 @@ const AdminLogin = ({ setLoggedIn }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/admin/login", {
+      const response = await axios.post(`${baseURL}/admin/login`, {
         username,
         password,
       });

@@ -7,6 +7,7 @@ import CollegeInfo from "./CollegeInfo";
 import GrievanceForm from "./GrievanceFrom";
 import GrievanceStatus from "./GrievanceStatus";
 
+const baseURL = process.env.REACT_APP_BACKEND_URL;
 const Home = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
@@ -21,7 +22,7 @@ const Home = () => {
         navigate("/login");
       }
       const { data } = await axios.post(
-        "http://localhost:5000",
+        `${baseURL}`,
         {},
         { withCredentials: true }
       );
