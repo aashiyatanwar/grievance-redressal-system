@@ -22,7 +22,7 @@ const Home = () => {
         navigate("/login");
       }
       const { data } = await axios.post(
-        `${baseURL}`,
+        `${baseURL}/verify`,
         {},
         { withCredentials: true }
       );
