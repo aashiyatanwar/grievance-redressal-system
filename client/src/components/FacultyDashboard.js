@@ -17,7 +17,7 @@ const FacultyDashboard = () => {
 
   useEffect(() => {
     const verifyCookie = async () => {
-      console.log("cookies" , cookies.token_fac)
+      console.log("cookies" , cookies)
       // if (!cookies.token_fac) {
       //   navigate("/faculty/login");
       // }
