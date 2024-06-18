@@ -18,9 +18,9 @@ const FacultyDashboard = () => {
   useEffect(() => {
     const verifyCookie = async () => {
       console.log("cookies" , cookies.token_fac)
-      if (!cookies.token_fac) {
-        navigate("/faculty/login");
-      }
+      // if (!cookies.token_fac) {
+      //   navigate("/faculty/login");
+      // }
       const { data } = await axios.post(
         `${baseURL}/faculty/verify`,
         {},
