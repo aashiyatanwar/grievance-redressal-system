@@ -22,7 +22,7 @@ const FacultyDashboard = () => {
         navigate("/faculty/login");
       }
       const { data } = await axios.post(
-        `${baseURL}/faculty`,
+        `${baseURL}/faculty/verify`,
         {},
         { withCredentials: true }
       );

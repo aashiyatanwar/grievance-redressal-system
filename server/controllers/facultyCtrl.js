@@ -14,7 +14,9 @@ module.exports.Signup = async (req, res, next) => {
     console.log("signu-fac: " ,token_fac)
     res.cookie("token_fac", token_fac, {
       withCredentials: true,
-      httpOnly: false,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None'
     });
     console.log("cookie" , res.cookie)
     res
@@ -44,7 +46,9 @@ module.exports.Login = async (req, res, next) => {
        console.log("login-token-fac" , token_fac)
        res.cookie("token_fac", token_fac, {
          withCredentials: true,
-         httpOnly: false,
+         httpOnly: true,
+         secure: process.env.NODE_ENV === 'production',
+         sameSite: 'None'
        });
        console.log("cookie" , res.cookie)
        res.status(201).json({ message: "User logged in successfully", success: true });
